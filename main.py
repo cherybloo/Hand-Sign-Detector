@@ -40,7 +40,7 @@ while True:
                 music.stop()
 
     cv2.putText(image,label,(10,50),cv2.FONT_HERSHEY_DUPLEX,1,(0,0,0),2,cv2.LINE_AA)
-    cv2.imshow("HELLO DICKHEAD",image)
+    cv2.imshow("HELLO THERE!",image)
     if cv2.waitKey(1)==ord('d'):
         break
 cam.release()
