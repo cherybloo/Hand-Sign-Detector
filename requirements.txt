@@ -1,4 +1,4 @@
 python-vlc
 mediapipe
 opencv-python
-tensorflow
+tensorflow==2.9.0

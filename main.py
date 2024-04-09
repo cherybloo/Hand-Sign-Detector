@@ -8,8 +8,8 @@ mpHands = mp.solutions.hands
 hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
 mpDraw = mp.solutions.drawing_utils
 
-model=tf.keras.models.load_model('handGesture/mp_hand_gesture')
-
+#model=tf.keras.models.load_model('handGesture/mp_hand_gesture')
+model=tf.saved_model.load('handGesture/mp_hand_gesture')
 fhandle=open('handGesture/gesture.names','r')
 labels=fhandle.read().split('\n')
 fhandle.close()
@@ -31,12 +31,13 @@ while True:
                 lmx,lmy=int(lm.x*width),int(lm.y*height)
                 landmarks.append([lmx,lmy])
             mpDraw.draw_landmarks(image,hand_landmarks,mpHands.HAND_CONNECTIONS)
-            prediction=model.predict([landmarks])
+            prediction=model([landmarks])
+            #prediction=model.predict([landmarks])
             id=np.argmax(prediction)
             label=labels[id]
             if(label=='call me'):
                 music.play()
-            elif(label=='fist'):
+            elif(label=='okay'):
                 music.stop()
 
     cv2.putText(image,label,(10,50),cv2.FONT_HERSHEY_DUPLEX,1,(0,0,0),2,cv2.LINE_AA)
